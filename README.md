@@ -1,0 +1,1 @@
+gss = golang steg suite
