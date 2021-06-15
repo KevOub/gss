@@ -1,10 +1,5 @@
 package sio
 
-import (
-	"image"
-	"os"
-)
-
 // Enum to determine the mode to use
 type ModeSelector uint8
 
@@ -24,12 +19,12 @@ type IO struct {
 	Mode ModeSelector
 }
 
-func LoadImage(path string) (image.Image, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	image, _, err := image.Decode(f)
-	return image, err
-}
+// func LoadImage(path string) (image.Image, error) {
+// 	f, err := os.Open(path)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer f.Close()
+// 	image, _, err := image.Decode(f)
+// 	return image, err
+// }
