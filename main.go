@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+	"log"
 
 	"github.com/KevOub/gss/pkg/decoder"
 	"github.com/KevOub/gss/pkg/encoder"
@@ -22,8 +20,8 @@ Then,
 */
 
 func main() {
-	seed := time.Now().UnixNano()
-	r := rand.New(rand.NewSource(seed))
+	// seed := time.Now().UnixNano()
+	// r := rand.New(rand.NewSource(seed))
 
 	// The colorspace to encode in
 	var mode encoder.RGBA
@@ -32,20 +30,24 @@ func main() {
 	mode.DataChannel = encoder.Green
 
 	// The data to send over
-	junk := make([]byte, 720000)
-	for i := 0; i < len(junk); i++ {
-		junk[i] = byte(r.Intn(64))
+	// junk := make([]byte, 720000)
+	// for i := 0; i < len(junk); i++ {
+	// junk[i] = byte(r.Intn(64))
+	// }
+
+	data, err := util.LoadFileToByte("assets/ulysses.txt")
+	if err != nil {
+		log.Fatal("Uh oh")
 	}
 
-	buff := encoder.NewEncoder("assets/cat.png", junk, &mode)
+	buff := encoder.NewEncoder("assets/cat.png", data, &mode)
 
-	buff.Encode(&mode, "test.png")
+	buff.Encode(&mode, "output/ulysses.png")
 
 	img1, _ := util.LoadImage("assets/cat.png")
-	img2, _ := util.LoadImage("test.png")
+	img2, _ := util.LoadImage("output/ulysses.png")
 
 	decoder.Delta(img1, img2)
 	// fmt.Printf("%d %d", img.Out.Rect.Dx(), img.Out.Rect.Dy())
 
-	fmt.Println("hello world")
 }
